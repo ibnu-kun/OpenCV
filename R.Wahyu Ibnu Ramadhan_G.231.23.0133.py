@@ -15,7 +15,7 @@ if not os.path.exists(repo_path):
 # Menjadi seperti ini:
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 converse_dir = os.path.join(repo_path, "converse")
-save_dir = os.path.join(BASE_DIR, "hasil_tugas")
+save_dir = os.path.join(BASE_DIR, "hasil_tugas1")
 os.makedirs(save_dir, exist_ok=True)
 
 if os.path.exists(converse_dir):
@@ -69,6 +69,21 @@ if os.path.exists(converse_dir):
             canny_res, 
             cv2.cvtColor(noisy_res_bgr, cv2.COLOR_BGR2RGB)
         ]
+        
+        plt.figure(figsize=(12, 8))
+        for i in range(6):
+            plt.subplot(2, 3, i+1)
+            # Tampilkan gambar RGB atau Grayscale sesuai channelnya
+            if len(img_list[i].shape) == 3:
+                plt.imshow(img_list[i])
+            else:
+                plt.imshow(img_list[i], cmap='gray')
+            plt.title(titles[i])
+            plt.axis('off')
+        
+        plt.tight_layout()
+        plt.savefig(os.path.join(save_dir, f"{base_name}_visualisasi.png"))
+        plt.close()
     
     print(f"All processed images (Original in Color) saved in: {save_dir}")
 else:
